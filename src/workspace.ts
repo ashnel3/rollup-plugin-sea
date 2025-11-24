@@ -1,4 +1,4 @@
-import { copyFile, rm } from 'node:fs/promises'
+import { chmod, copyFile, rm } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { $postject, $seablob, $signAdd, $signRemove, extExe, prefix } from './util'
 import type { OutputChunk } from 'rollup'
@@ -70,9 +70,13 @@ export const createWorkspace = (
   async build() {
     context.info(`${prefix(name)} Preparing workspace...`)
     // 1. copy nodejs executable
-    await copyFile(process.execPath, this.paths.output).catch((cause) =>
-      context.error({ message: `Failed to copy node "${process.execPath}"!`, cause }),
-    )
+    await Promise.resolve()
+      .then(async () => await copyFile(process.execPath, this.paths.output))
+      .then(async () => await chmod(this.paths.output, 0o755))
+      .catch((cause) =>
+        context.error({ message: `Failed to copy node "${process.execPath}"!`, cause }),
+      )
+
     // 2. prep code blob & executable
     await Promise.all([$signRemove(this), $seablob(this)])
     // 3. inject code blob

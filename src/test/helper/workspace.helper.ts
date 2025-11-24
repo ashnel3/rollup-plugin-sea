@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises'
 import os from 'node:os'
-import { resolve } from 'node:path'
+import { basename, resolve } from 'node:path'
 import { beforeAll, afterAll, vi } from 'vitest'
 import { createWorkspace } from '../../workspace'
 import { extNone } from '../../util'
@@ -46,14 +46,19 @@ export const useTempdirs = () => {
  * @param filename script file
  * @returns        workspace
  */
-export const useWorkspace = (filename: string) => {
+export const useWorkspace = (path: string) => {
   const workspace = {} as Workspace
   const tempdir = useTempdirs()
 
   beforeAll(async () => {
     const outdir = await tempdir()
-    const filepath = resolve(import.meta.dirname, '../', filename)
-    Object.assign(workspace, createWorkspace(context, filepath, extNone(filepath), outdir))
+    const filepath = resolve(import.meta.dirname, '../', path)
+    const filename = basename(filepath)
+    const destpath = resolve(outdir, filename)
+    // copy script
+    await fs.copyFile(filepath, destpath)
+    // create workspace
+    Object.assign(workspace, createWorkspace(context, filename, extNone(filename), outdir))
   })
 
   return workspace
