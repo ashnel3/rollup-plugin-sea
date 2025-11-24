@@ -8,8 +8,18 @@ import type { Workspace } from '../types'
 // @ts-ignore - postject types may not be included
 import { inject } from 'postject'
 
+/**
+ * Check if running in node-js
+ * @private
+ * @returns is node-js
+ */
 export const isNode = () => typeof process.versions?.node !== 'undefined'
 
+/**
+ * Check if running as sea executable
+ * @private
+ * @returns is node-sea
+ */
 export const isSea = () => {
   try {
     return process.getBuiltinModule?.('node:sea')?.isSea() || false
@@ -21,7 +31,6 @@ export const isSea = () => {
 /**
  * Generate code blob. `$ node --experimental-sea-config sea-config.json`
  * @param workspace sea workspace
- * @returns
  */
 export const $seablob = async ({ context, config, paths, name }: Workspace) => {
   await writeFile(paths.config, JSON.stringify(config))

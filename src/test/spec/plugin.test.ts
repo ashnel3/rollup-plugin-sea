@@ -44,7 +44,7 @@ describe('plugin', () => {
     // verify output
     await expect(resolve(dir, 'echo-sea-config.json')).not.access()
     await expect(resolve(dir, 'echo-sea-prep.blob')).not.access()
-    await expect(resolve(dir, 'echo')).access(constants.F_OK | constants.X_OK)
+    await expect(resolve(dir, seaUtil.extExe('echo'))).access(constants.F_OK | constants.X_OK)
   })
 
   it('should ignore watch', async () => {

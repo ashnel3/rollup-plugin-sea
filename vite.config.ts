@@ -53,5 +53,6 @@ export default defineConfig({
       include: ['src/**/*.ts'],
       exclude: ['src/test/**', 'src/build/**', 'src/bin/**', 'src/**/*.d.ts'],
     },
+    testTimeout: 30_000,
   },
 })

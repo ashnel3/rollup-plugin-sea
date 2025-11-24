@@ -31,6 +31,9 @@ describe('workspace', () => {
   })
 
   it.sequential('should execute', async () => {
+    // verify built executable
+    await expect(workspace.paths.output).access(constants.F_OK | constants.X_OK)
+    // verify executable behavior
     const arg = 'testing'
     const child = spawn(workspace.paths.output, [arg])
     await expect(child).resolves.toMatchObject({
