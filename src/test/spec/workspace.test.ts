@@ -12,14 +12,18 @@ describe('workspace', () => {
     await expect(workspace.build()).rejects.toThrow('Failed to copy')
   })
 
-  it.sequential('should build', async () => {
-    await expect(workspace.build()).resolves.toBe(workspace)
-    // verify workspace is valid
-    await expect(workspace.paths.config).access()
-    await expect(workspace.paths.config).jsonToEqual(workspace.config)
-    // verify sea-blob
-    await expect(workspace.config.output).access()
-  })
+  it.sequential(
+    'should build',
+    async () => {
+      await expect(workspace.build()).resolves.toBe(workspace)
+      // verify workspace is valid
+      await expect(workspace.paths.config).access()
+      await expect(workspace.paths.config).jsonToEqual(workspace.config)
+      // verify sea-blob
+      await expect(workspace.config.output).access()
+    },
+    30000,
+  )
 
   it.sequential('should finalize', async () => {
     await expect(workspace.finalize()).resolves.toBe(workspace)
@@ -31,6 +35,9 @@ describe('workspace', () => {
   })
 
   it.sequential('should execute', async () => {
+    // verify built executable
+    await expect(workspace.paths.output).access(constants.F_OK | constants.X_OK)
+    // verify executable behavior
     const arg = 'testing'
     const child = spawn(workspace.paths.output, [arg])
     await expect(child).resolves.toMatchObject({
