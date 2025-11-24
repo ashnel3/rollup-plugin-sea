@@ -45,7 +45,7 @@ describe('plugin', () => {
     await expect(resolve(dir, 'echo-sea-config.json')).not.access()
     await expect(resolve(dir, 'echo-sea-prep.blob')).not.access()
     await expect(resolve(dir, 'echo')).access(constants.F_OK | constants.X_OK)
-  }, 30000)
+  })
 
   it('should ignore watch', async () => {
     const dir = await tempdir()
