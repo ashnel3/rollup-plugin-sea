@@ -1,0 +1,9 @@
+*
+
+!dist/**/*.{cjs,mjs,js,json,ts}
+!package.json
+!pnpm-lock.yaml
+!tsconfig*.json
+
+!README*
+!LICENSE

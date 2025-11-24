@@ -1,0 +1,12 @@
+node_modules/
+tsconfig*.json
+
+# output
+dist
+docs
+
+# lock-files
+package-lock.json
+pnpm-lock.yaml
+*.lockb
+*.lock

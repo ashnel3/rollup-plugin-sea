@@ -1,0 +1,10 @@
+{
+  "name": "rollup-plugin-sea",
+  "readme": "./README.md",
+  "entryPoints": ["./src/index.ts", "./src/workspace.ts", "./src/types.d.ts"],
+  "externalSymbolLinkMappings": {
+    "rollup": {
+      "PluginContext": "https://rollupjs.org/plugin-development"
+    }
+  }
+}

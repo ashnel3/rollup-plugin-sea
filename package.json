@@ -1,0 +1,78 @@
+{
+  "name": "rollup-plugin-sea",
+  "version": "1.0.0-alpha.1",
+  "description": "rollup single executable applications",
+  "type": "module",
+  "exports": {
+    "./types": "./dist/types.d.ts",
+    "./workspace": {
+      "types": "./dist/workspace.d.ts",
+      "require": "./dist/workspace.cjs",
+      "import": "./dist/workspace.js"
+    },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "start": "pnpm build --watch",
+    "start:sea": "vite-node src/bin/sea.ts",
+    "build": "vite build",
+    "format": "prettier -cw .",
+    "lint": "pnpm run --no-bail /^lint:.*/",
+    "lint:format": "prettier -l .",
+    "lint:tsc": "tsc -b .",
+    "test": "vitest --run",
+    "test:coverage": "vitest --run --coverage",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashnel3/rollup-plugin-sea.git"
+  },
+  "keywords": [
+    "sea",
+    "executable",
+    "exe",
+    "plugin",
+    "rollup",
+    "vite"
+  ],
+  "author": "ashnel3",
+  "license": "MIT",
+  "bugs": "https://github.com/ashnel3/rollup-plugin-sea/issues",
+  "homepage": "https://github.com/ashnel3/rollup-plugin-sea#readme",
+  "engines": {
+    "node": ">= 20"
+  },
+  "engineStrict": true,
+  "dependencies": {
+    "nano-spawn": "^2.0.0",
+    "postject": "1.0.0-alpha.6"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@vitest/coverage-v8": "^4.0.13",
+    "husky": "^9.1.7",
+    "prettier": "^3.6.2",
+    "typedoc": "^0.28.14",
+    "typescript": "^5.9.3",
+    "vite-node": "^5.2.0",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.0.13"
+  },
+  "peerDependencies": {
+    "rollup": "^4.53.2",
+    "vite": "^7.2.2"
+  },
+  "packageManager": "pnpm@10.22.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
